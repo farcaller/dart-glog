@@ -1,6 +1,6 @@
 name: glog
 description: An implementation of glog in dart with some extra bells and whistles.
-version: 1.0.1
+version: 1.1.0
 homepage: https://github.com/farcaller/dart-glog
 
 environment:
