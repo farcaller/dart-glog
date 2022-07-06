@@ -81,7 +81,7 @@ class GlogLogger {
     }
 
     final formattedMessage =
-        '${level.toShortString()}$date ${Isolate.current.debugName} $fileName:${frame.line}] $msg';
+        '${level.toShortString()}$date ${Isolate.current.debugName} $fileName:${frame.line}] $msg\n';
 
     // TODO: add an option to pick and choose
     // developer.log(formattedMessage, level: level.toLoggingLevel());
