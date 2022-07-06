@@ -69,9 +69,17 @@ extension ParseToString on LogLevel {
 }
 
 class GlogLogger {
+  final Set<String> mutedContexts = {};
+  final Set<String> soloedContexts = {};
+
   static final GlogLogger _globalLogger = GlogLogger();
 
+  static GlogLogger get global => _globalLogger;
+
   log(LogLevel level, String context, String msg) {
+    if (soloedContexts.isNotEmpty && !soloedContexts.contains(context)) return;
+    if (mutedContexts.contains(context)) return;
+
     final date = formatDate(
         DateTime.now(), [mm, dd, ' ', HH, ':', nn, ':', ss, '.', uuu]);
     final frame = Trace.from(StackTrace.current).terse.frames[2];
