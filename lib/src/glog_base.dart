@@ -14,7 +14,7 @@
 
 import 'dart:isolate';
 import 'dart:io' show Platform, stderr;
-// import 'dart:developer' as developer;
+import 'dart:developer' as developer;
 
 import 'package:date_format/date_format.dart';
 import 'package:stack_trace/stack_trace.dart';
@@ -92,8 +92,8 @@ class GlogLogger {
         '${level.toShortString()}$date ${Isolate.current.debugName} $fileName:${frame.line}] $msg\n';
 
     // TODO: add an option to pick and choose
-    // developer.log(formattedMessage, level: level.toLoggingLevel());
-    stderr.write(formattedMessage);
+    developer.log(formattedMessage, level: level.toLoggingLevel());
+    // stderr.write(formattedMessage);
   }
 }
 
