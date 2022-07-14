@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'dart:isolate';
-import 'dart:io' show Platform, stderr;
+import 'dart:io' show Platform;
 import 'dart:developer' as developer;
 
 import 'package:date_format/date_format.dart';
@@ -71,6 +71,8 @@ extension ParseToString on LogLevel {
 class GlogLogger {
   final Set<String> mutedContexts = {};
   final Set<String> soloedContexts = {};
+  bool logToDevlog = false;
+  bool logToStdout = true;
 
   static final GlogLogger _globalLogger = GlogLogger();
 
@@ -89,11 +91,12 @@ class GlogLogger {
     }
 
     final formattedMessage =
-        '${level.toShortString()}$date ${Isolate.current.debugName} $fileName:${frame.line}] $msg\n';
+        '${level.toShortString()}$date ${Isolate.current.debugName} ($context) $fileName:${frame.line}] $msg';
 
-    // TODO: add an option to pick and choose
-    developer.log(formattedMessage, level: level.toLoggingLevel());
-    // stderr.write(formattedMessage);
+    if (logToDevlog) {
+      developer.log(formattedMessage, level: level.toLoggingLevel());
+    }
+    if (logToStdout) print(formattedMessage);
   }
 }
 
