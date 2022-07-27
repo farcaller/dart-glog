@@ -86,12 +86,19 @@ class GlogLogger {
         DateTime.now(), [mm, dd, ' ', HH, ':', nn, ':', ss, '.', uuu]);
     final frame = Trace.from(StackTrace.current).terse.frames[2];
     var fileName = frame.library.split('/').last;
-    if (Platform.isWindows) {
-      fileName = fileName.split('\\').last;
-    }
+    try {
+      if (Platform.isWindows) {
+        fileName = fileName.split('\\').last;
+      }
+    } catch (_) {}
+
+    String debugName = '';
+    try {
+      debugName = Isolate.current.debugName ?? '';
+    } catch (_) {}
 
     final formattedMessage =
-        '${level.toShortString()}$date ${Isolate.current.debugName} ($context) $fileName:${frame.line}] $msg';
+        '${level.toShortString()}$date $debugName ($context) $fileName:${frame.line}] $msg';
 
     if (logToDevlog) {
       developer.log(formattedMessage, level: level.toLoggingLevel());
