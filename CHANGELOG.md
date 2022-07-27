@@ -1,3 +1,7 @@
+## 1.3.0
+
+* Add safeguards to not crash on web.
+
 ## 1.2.0
 
 * Add an option to pick where the logging goes in runtime.
